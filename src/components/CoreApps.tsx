@@ -415,6 +415,218 @@ export const SettingsApp: React.FC<SettingsProps> = ({ onBack, wallpaper, setWal
 
 
 // ==========================================
+// OFFLINE WEB & CHAT GENERATOR HELPERS FOR GITHUB PAGES COMPATIBILITY
+// ==========================================
+const getOfflineWebpage = (targetUrl: string): string => {
+  const url = targetUrl.toLowerCase();
+  
+  if (url.includes("wikipedia")) {
+    return `
+      <div class="bg-slate-900 text-slate-100 p-4 font-sans leading-relaxed tracking-normal max-w-3xl mx-auto rounded-lg">
+        <div class="border-b border-slate-700 pb-3 mb-4">
+          <h1 class="text-2xl font-serif text-white font-semibold">維基百科 (Wikipedia)</h1>
+          <p class="text-xs text-slate-400 mt-1">「自由的百科全書」，本機沙盒離線緩存版本</p>
+        </div>
+        <div class="flex flex-col md:flex-row gap-6">
+          <div class="flex-1 space-y-4">
+            <h2 class="text-lg font-bold text-white border-b border-slate-800 pb-1">Android (作業系統)</h2>
+            <p class="text-sm text-slate-300">
+              <b>Android</b>（中文譯作「安卓」）是一個基於Linux核心的開放原始碼行動作業系統，由Google成立的開放手機聯盟（OHA）主導與開發。主要設計用於觸控螢幕行動裝置，如智慧型手機平板電腦。
+            </p>
+            <p class="text-sm text-slate-300">
+              Android最初由Andy Rubin創立，並於2005年被Google收購。2007年11月，Google以「開放手機聯盟」的名義推出了Android核心系統，並發行了由多個裝置製造商、晶片商和電信業者組成的聯盟版本。
+            </p>
+            <h3 class="text-sm font-bold text-slate-200 mt-2">📊 主要版本發展資訊</h3>
+            <ul class="list-disc pl-5 text-xs text-slate-400 space-y-1">
+              <li>Android 14 (Upside Down Cake) - 當前預設模擬系統</li>
+              <li>Android 13 (Tiramisu) - 全面升級隱私設定</li>
+              <li>Android 12 (Snow Cone) - 導入 Material You 全新美學體驗</li>
+            </ul>
+          </div>
+          <div class="w-full md:w-48 bg-slate-850 p-3 rounded-lg border border-slate-800 text-xs text-slate-300 h-fit shrink-0">
+            <div class="bg-emerald-950/40 border border-emerald-900 text-emerald-400 text-[10px] uppercase font-bold text-center py-1 rounded mb-2">Android OS Profile</div>
+            <p class="mb-1"><b>開發商:</b> Google, OHA</p>
+            <p class="mb-1"><b>首次發行:</b> 2008年9月23日</p>
+            <p class="mb-1"><b>授權條款:</b> Apache 2.0 / GPLv2</p>
+            <p class="mb-1"><b>官方網站:</b> android.com</p>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  if (url.includes("hacker") || url.includes("ycombinator") || url.includes("news")) {
+    return `
+      <div class="bg-[#f6f6ef] text-[#222222] p-3 font-sans text-xs select-text rounded-lg">
+        <div class="bg-[#ff6600] p-2 flex items-center justify-between text-black font-bold mb-3 rounded shadow">
+          <div class="flex items-center space-x-2">
+            <span class="border-2 border-black px-1.5 py-0.5 text-xs font-mono font-black">Y</span>
+            <span class="text-sm">Hacker News Mobile</span>
+          </div>
+          <span class="text-[10px] font-normal text-slate-900">offline sandbox</span>
+        </div>
+        <div class="space-y-4 px-1">
+          <div class="flex items-start space-x-2">
+            <span class="text-slate-500 font-mono w-4 text-right">1.</span>
+            <div>
+              <a href="#" class="font-medium text-slate-900 hover:underline">Show HN: Goldfish &ndash; A gorgeous in-browser Android OS emulator</a>
+              <span class="text-[10px] text-slate-500 ml-1">(github.com/goldfish-emu)</span>
+              <div class="text-[9px] text-slate-500 mt-0.5">248 points by hackergoldy 4 hours ago | 64 comments</div>
+            </div>
+          </div>
+          <div class="flex items-start space-x-2">
+            <span class="text-slate-500 font-mono w-4 text-right">2.</span>
+            <div>
+              <a href="#" class="font-medium text-slate-900 hover:underline">React 19 hits full stable with improved Suspense & Form Actions</a>
+              <span class="text-[10px] text-slate-500 ml-1">(react.dev)</span>
+              <div class="text-[9px] text-slate-500 mt-0.5">512 points by dan_abramov 8 hours ago | 124 comments</div>
+            </div>
+          </div>
+          <div class="flex items-start space-x-2">
+            <span class="text-slate-500 font-mono w-4 text-right">3.</span>
+            <div>
+              <a href="#" class="font-medium text-slate-900 hover:underline">Why running AI models local-first is the future of privacy</a>
+              <span class="text-[10px] text-slate-500 ml-1">(localfirstweb.org)</span>
+              <div class="text-[9px] text-slate-500 mt-0.5">186 points by decentralized_ai 1 day ago | 59 comments</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  if (url.includes("reddit")) {
+    return `
+      <div class="bg-[#0b1416] text-[#ecefed] p-3 font-sans rounded-lg">
+        <div class="flex items-center justify-between border-b border-neutral-800 pb-2 mb-3">
+          <div class="flex items-center space-x-2 text-white">
+            <span class="bg-[#ff4500] text-black text-xs font-black p-1 rounded-full w-6 h-6 flex items-center justify-center">r/</span>
+            <span class="font-bold text-sm tracking-tight text-white">Reddit Sandbox</span>
+          </div>
+          <span class="text-[10px] bg-emerald-900 text-emerald-300 font-mono px-2 py-0.5 rounded-full">CONNECTED</span>
+        </div>
+        <div class="space-y-4">
+          <div class="bg-[#1a282d] p-3 rounded-xl border border-neutral-800">
+            <div class="flex items-center space-x-1.5 text-slate-400 text-[10px] mb-1">
+              <span class="font-bold text-slate-300">r/androiddev</span>
+              <span>• posted by u/web_stager 3h ago</span>
+            </div>
+            <h3 class="font-bold text-xs text-white">I compiled a complete Android System in pure React and Tailwind CSS</h3>
+            <p class="text-[11px] text-slate-300 mt-1.5 leading-normal">
+              Just deployed my emulator demo to Github Pages! It has real simulated Termux shells, retro Flappy Android apps, direct APK upload stagers AND responsive camera/sensors! Give me feedback on layout clipping or scroll behavior.
+            </p>
+            <div class="flex items-center space-x-3 text-slate-400 text-[10px] mt-3 font-medium">
+              <button class="bg-[#2a3c42] hover:bg-[#344b52] px-2.5 py-1 rounded-full flex items-center space-x-1">⬆️ 1.2k</button>
+              <button class="bg-[#2a3c42] hover:bg-[#344b52] px-2.5 py-1 rounded-full">💬 142 Comments</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+  
+  if (url.includes("weather")) {
+    return `
+      <div class="bg-gradient-to-br from-indigo-950 via-slate-900 to-indigo-900 text-white p-4 font-sans rounded-xl border border-indigo-900/40">
+        <div class="flex items-center justify-between mb-4">
+          <div>
+            <h2 class="text-xl font-bold">臺北市 (Taipei City)</h2>
+            <p class="text-xs text-indigo-300">多雲時晴 (Mostly Cloudy) • 沙盒即時氣象儀</p>
+          </div>
+          <span class="text-3xl text-yellow-400 animate-pulse">⛅</span>
+        </div>
+        <div class="grid grid-cols-2 gap-4 mb-4">
+          <div class="bg-indigo-900/40 border border-indigo-800/40 p-3 rounded-xl text-center">
+            <p class="text-[10px] text-indigo-200">當前溫度 (TEMP)</p>
+            <p class="text-2xl font-black mt-1 font-mono text-yellow-300">26°C</p>
+          </div>
+          <div class="bg-indigo-900/40 border border-indigo-800/40 p-3 rounded-xl text-center">
+            <p class="text-[10px] text-indigo-200">體感溫度 (FEELS LIKE)</p>
+            <p class="text-2xl font-black mt-1 font-mono">28°C</p>
+          </div>
+        </div>
+        <div class="space-y-2 text-xs">
+          <div class="flex justify-between border-b border-indigo-950 pb-1.5">
+            <span class="text-indigo-200">相對濕度 (Humidity)</span>
+            <span>74%</span>
+          </div>
+          <div class="flex justify-between border-b border-indigo-950 pb-1.5">
+            <span class="text-indigo-200">瞬間風速 (Wind)</span>
+            <span>NE 12 km/h</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-indigo-200">空氣品質 (AQI)</span>
+            <span class="text-emerald-400 font-bold">34 (優良良好)</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="bg-slate-900 text-slate-100 p-4 font-sans max-w-2xl mx-auto rounded-lg border border-slate-800">
+      <div class="border-b border-slate-800 pb-3 mb-3 flex items-center justify-between">
+        <div>
+          <h1 class="text-base font-bold text-white">${targetUrl}</h1>
+          <p class="text-[10px] text-slate-400 mt-0.5">離線解析檢視 (Decentralized static view proxy)</p>
+        </div>
+        <span class="text-xs bg-emerald-900/40 border border-emerald-800 text-emerald-400 px-2 py-0.5 rounded">HTTPS SECURE</span>
+      </div>
+      <div class="py-4 space-y-3">
+        <div class="bg-indigo-950/20 border border-indigo-900/40 p-3 rounded-xl">
+          <h3 class="text-xs font-bold text-indigo-300 border-b border-indigo-950 pb-1 mb-1.5">網路代理解析通告</h3>
+          <p class="text-[11px] text-slate-300 leading-normal">
+            瀏覽地址 <b>${targetUrl}</b> 正在離線模擬。在 GitHub Pages 等靜態網頁託管環境中，模擬器已自動切換至「本機端即時解析」機制，確保了流暢的互動體驗。
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-2 text-center text-[10px] font-mono">
+          <div class="bg-slate-850 p-2.5 rounded-lg border border-slate-800 text-slate-300">
+            [DEX_HEAP] 100% OK
+          </div>
+          <div class="bg-slate-850 p-2.5 rounded-lg border border-slate-800 text-emerald-400">
+            [SANDBOX] static-v1.8
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+};
+
+const getOfflineChatReply = (contactName: string, messageText: string): string => {
+  const text = messageText.toLowerCase();
+  
+  if (contactName.includes("Gemini") || contactName.includes("Assistant")) {
+    if (text.includes("hey") || text.includes("hello") || text.includes("hi")) {
+      return "嗨！我是 Gemini 虛擬助手。雖然本機正處於 GitHub Pages 離線沙盒中，但我依然能利用本機模擬邏輯回答您的多數基本問題哦！";
+    }
+    if (text.includes("weather") || text.includes("天氣")) {
+      return "目前本機環境溫度約 26°C，多雲時晴。您可以到主桌面的『瀏覽器』並搜尋 'weather.com' 查看詳細台北氣象資訊！";
+    }
+    if (text.includes("help") || text.includes("cmd") || text.includes("指令") || text.includes("功能")) {
+      return "本機功能強大！您可以：\n1. 開啟 Termux 並輸入 'ls' or 'neofetch'\n2. 拖放 (Drag & Drop) 任何 .apk 至模擬器桌面進行 AI 合成安裝\n3. 開啟 Pixel 繪畫作品存檔。";
+    }
+    return `收到您的查詢！在離線/靜態模式下，我會為您提供全面的設備狀態模擬。請盡情測試！`;
+  }
+  
+  if (contactName.includes("Charon") || contactName.includes("Lead")) {
+    if (text.includes("error") || text.includes("bug") || text.includes("修")) {
+      return "聽說你遇到了一些佈局或狀態錯誤？試著確認瀏覽器 Console 或是檢查 package.json 指向吧！目前畫布自適應已經優化囉。";
+    }
+    return "太棒了，目前在 GitHub Pages 的靜態預覽也是完美運行了，我們成功突破了 Express/Node 伺服器容器的限制！";
+  }
+  
+  if (contactName.includes("Dad") || contactName.includes("爸")) {
+    if (text.includes("吃") || text.includes("晚餐") || text.includes("餓")) {
+      return "今天煮了牛肉麵還有蔥油餅喔！快回家吃，別加班太晚囉。";
+    }
+    return "哈哈，真不錯。有空記得打電話給我，你媽說這主廚模擬器很有趣！";
+  }
+  
+  return `你好！很高興收到訊息。本機已記錄下你的輸入: "${messageText}"。希望你喜歡這個金魚 (Goldfish) 虛擬安卓模擬裝置。`;
+};
+
+
+// ==========================================
 // 3. SIMULATED CHROME BROWSER
 // ==========================================
 interface ChromeProps {
@@ -446,8 +658,8 @@ export const SimulatedChrome: React.FC<ChromeProps> = ({ onBack }) => {
 
   const fetchPage = async (targetUrl: string) => {
     setLoading(true);
+    const formattedUrl = targetUrl.replace(/(^\w+:|^)\/\//, ""); // clean https if any
     try {
-      const formattedUrl = targetUrl.replace(/(^\w+:|^)\/\//, ""); // clean https if any
       const response = await fetch("/api/gemini/browser", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -457,10 +669,10 @@ export const SimulatedChrome: React.FC<ChromeProps> = ({ onBack }) => {
       if (data.content) {
         setPageContent(data.content);
       } else {
-        setPageContent("<div>Failed to load simulated web preview</div>");
+        setPageContent(getOfflineWebpage(formattedUrl));
       }
     } catch (err) {
-      setPageContent("<div>Connection error in WASM network proxy sandbox</div>");
+      setPageContent(getOfflineWebpage(formattedUrl));
     } finally {
       setLoading(false);
     }
@@ -591,6 +803,9 @@ export const WhatsAppMessenger: React.FC<WhatsAppProps> = ({ onBack }) => {
           message: userMsg.text
         }),
       });
+      
+      if (!response.ok) throw new Error("API server reported errors.");
+      
       const data = await response.json();
       
       const responseMsg: Message = {
@@ -605,11 +820,13 @@ export const WhatsAppMessenger: React.FC<WhatsAppProps> = ({ onBack }) => {
         [cId]: [...(prev[cId] || []), responseMsg]
       }));
     } catch {
-      // Fallback
+      // Simulate typing speed latency for local response
+      await new Promise(resolve => setTimeout(resolve, 800));
+      
       const responseMsg: Message = {
         id: String(Math.random()),
         sender: "contact",
-        text: "My virtual antenna has low connection, try texting again in a sec!",
+        text: getOfflineChatReply(activeContact.name, userMsg.text),
         timestamp: new Date()
       };
       setHistoryMap(prev => ({

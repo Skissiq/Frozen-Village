@@ -18,6 +18,246 @@ import { PhoneDialer, SettingsApp, SimulatedChrome, WhatsAppMessenger, FileManag
 import { FlappyBird, Termux, PixelPainter, AndroidCalculator } from "./components/PlayStoreApps";
 import { AIAppContainer } from "./components/AIAppContainer";
 
+// Local schema generator for offline / GitHub Pages compatibility fallback
+const generateLocalAppSchema = (apkName: string, fileList: string[]): any => {
+  const normName = apkName.toLowerCase();
+  const cleanName = apkName.replace(/\.apk$/i, "").replace(/[_-]/g, " ");
+
+  if (normName.includes("flappy") || normName.includes("game") || normName.includes("play") || normName.includes("mario") || normName.includes("retro") || normName.includes("chess")) {
+    return {
+      name: cleanName.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" "),
+      packageName: `com.goldfish.game.${normName.replace(/[^a-z0-9]/g, "") || "custom"}`,
+      themeColor: "#22c55e",
+      iconName: "Gamepad2",
+      initialState: {
+        score: "0",
+        highScore: "240",
+        status: "正在模擬遊戲引擎 (Ready to Play)",
+        logs: "初始化 Dalvik VM / Android 虛擬遊戲畫布..."
+      },
+      screens: [
+        {
+          title: "模擬遊戲室 (Retro Play)",
+          elements: [
+            {
+              type: "header",
+              id: "h1",
+              label: "螢光虛擬搖桿 / 點按加速器"
+            },
+            {
+              type: "text",
+              id: "score_lbl",
+              label: "當前分數 (Score): ",
+              valueParam: "score",
+              className: "text-[#22c55e] text-2xl font-black text-center tracking-widest font-mono"
+            },
+            {
+              type: "text",
+              id: "status_lbl",
+              label: "狀態: ",
+              valueParam: "status",
+              className: "text-slate-400 font-sans text-xs text-center border border-slate-800 p-1 rounded-lg"
+            },
+            {
+              type: "button",
+              id: "btn_score",
+              label: "🚀 增加分數 (+20 POINTS)",
+              action: "increment",
+              actionTarget: "score",
+              actionValue: "20",
+              className: "bg-green-500 hover:bg-green-400 active:scale-95 text-slate-950 font-sans font-bold py-2.5 rounded-xl text-center w-full shadow-lg block"
+            },
+            {
+              type: "button",
+              id: "btn_log",
+              label: "記錄遊戲狀態 (Save Log)",
+              action: "appendLog",
+              actionTarget: "logs",
+              actionValue: "\n[SAVE] 分數已保存至內部儲存區！",
+              className: "bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 text-xs py-1.5 rounded-lg text-center w-full"
+            },
+            {
+              type: "text",
+              id: "logs_display",
+              label: "虛擬控制台日誌:\n",
+              valueParam: "logs",
+              className: "bg-slate-950/80 p-2 border border-slate-850 rounded-xl font-mono text-[9px] text-[#22c55e] h-20 overflow-y-auto"
+            }
+          ]
+        }
+      ]
+    };
+  }
+
+  if (normName.includes("music") || normName.includes("sound") || normName.includes("player") || normName.includes("radio") || normName.includes("mp3")) {
+    return {
+      name: cleanName.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" "),
+      packageName: `com.goldfish.music.${normName.replace(/[^a-z0-9]/g, "") || "custom"}`,
+      themeColor: "#ec4899",
+      iconName: "Music",
+      initialState: {
+        track: "Aura of Goldfish (Official Lo-fi mix)",
+        isPlaying: "已暫停 (Player Paused)",
+        volume: "80%",
+        logs: "音訊卡已綁定虛擬端點。"
+      },
+      screens: [
+        {
+          title: "音樂播放器 (Audio Hub)",
+          elements: [
+            {
+              type: "header",
+              id: "h1",
+              label: "Goldfish On-Device MP3"
+            },
+            {
+              type: "text",
+              id: "track_lbl",
+              label: "當前播送: ",
+              valueParam: "track",
+              className: "font-bold text-center text-pink-400 text-sm py-1"
+            },
+            {
+              type: "text",
+              id: "play_status",
+              label: "播放狀態: ",
+              valueParam: "isPlaying",
+              className: "text-slate-400 text-xs text-center font-mono py-0.5"
+            },
+            {
+              type: "button",
+              id: "btn_play",
+              label: "▶️ 開始播送 (PLAY)",
+              action: "setState",
+              actionTarget: "isPlaying",
+              actionValue: "正在播放中... (Track Buffering & Playing)",
+              className: "bg-pink-500 hover:bg-pink-400 text-white font-bold py-2 rounded-xl text-center w-full cursor-pointer shadow-md"
+            },
+            {
+              type: "button",
+              id: "btn_pause",
+              label: "⏸️ 暫停播送 (PAUSE)",
+              action: "setState",
+              actionTarget: "isPlaying",
+              actionValue: "已暫停 (Player Paused)",
+              className: "bg-slate-800 hover:bg-slate-700 text-slate-300 py-1.5 rounded-lg text-center w-full"
+            },
+            {
+              type: "button",
+              id: "btn_switch",
+              label: "🔀 切換下一首 (Next Beat)",
+              action: "setState",
+              actionTarget: "track",
+              actionValue: "Neon Dreamscapes (Goldfish Remix 2026)",
+              className: "border border-pink-500/30 text-pink-300 text-xs py-1.5 rounded-lg text-center w-full"
+            }
+          ]
+        }
+      ]
+    };
+  }
+
+  if (normName.includes("note") || normName.includes("todo") || normName.includes("task") || normName.includes("memo") || normName.includes("sticky") || normName.includes("diary")) {
+    return {
+      name: cleanName.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" "),
+      packageName: `com.goldfish.tasks.${normName.replace(/[^a-z0-9]/g, "") || "custom"}`,
+      themeColor: "#f59e0b",
+      iconName: "BookOpen",
+      initialState: {
+        todoInput: "",
+        todoList: "• 購買虛擬牛奶\n• 修復安卓模擬器螢幕佈局\n• 編譯 APK 安裝包",
+        logs: "記事本內核儲存空間就緒"
+      },
+      screens: [
+        {
+          title: "記事備忘錄 (Quick Notes)",
+          elements: [
+            {
+              type: "header",
+              id: "h1",
+              label: "內部本機記事本"
+            },
+            {
+              type: "text",
+              id: "memo_items",
+              label: "備忘清單:\n",
+              valueParam: "todoList",
+              className: "bg-slate-950/80 p-3 rounded-lg border border-slate-850 text-amber-300 font-mono text-xs whitespace-pre-wrap min-h-24 max-h-36 overflow-y-auto"
+            },
+            {
+              type: "input",
+              id: "todoInput",
+              label: "新增備忘事項...",
+              placeholder: "輸入要儲存的記事內容..."
+            },
+            {
+              type: "button",
+              id: "btn_add",
+              label: "💾 儲存此備忘項目 (Add Item)",
+              action: "appendLog",
+              actionTarget: "todoList",
+              actionValue: "\n• ", 
+              className: "bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold py-2 rounded-xl text-center w-full cursor-pointer shadow-lg"
+            }
+          ]
+        }
+      ]
+    };
+  }
+
+  // Default spectacular, high-fidelity productivity suite fallback
+  return {
+    name: cleanName.split(" ").map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(" "),
+    packageName: `com.goldfish.app.${normName.replace(/[^a-z0-9]/g, "") || "custom"}`,
+    themeColor: "#3b82f6",
+    iconName: "Sparkles",
+    initialState: {
+      clicks: "0",
+      customInput: "",
+      systemLogs: "Goldfish 安裝程序已正確解析此應用程序元數據。\n[INIT] 檔案總數: " + (fileList ? fileList.length : "0")
+    },
+    screens: [
+      {
+        title: "主儀表板 (Dashboard)",
+        elements: [
+          {
+            type: "header",
+            id: "h1",
+            label: "合成沙盒工具 (Compiled Package)"
+          },
+          {
+            type: "text",
+            id: "desc",
+            label: "此為 100% 離線編譯、完美相容於 GitHub Pages 的 Android WASM 元數據虛擬包體容器。",
+            className: "text-[#3b82f6] text-xs text-center leading-normal mb-1 font-sans"
+          },
+          {
+            type: "input",
+            id: "customInput",
+            label: "自定義參數輸入 terminal",
+            placeholder: "輸入測試字串..."
+          },
+          {
+            type: "button",
+            id: "btn_action",
+            label: "⚡ 驅動內部核心運算 (Execute Code)",
+            action: "triggerAIAnswer",
+            actionTarget: "systemLogs",
+            className: "bg-blue-500 hover:bg-blue-400 text-white font-sans font-bold py-2 rounded-xl text-center w-full cursor-pointer shadow-md"
+          },
+          {
+            type: "text",
+            id: "logs_display",
+            label: "模擬器控制台日誌 (ADB logs):\n",
+            valueParam: "systemLogs",
+            className: "bg-slate-950/80 p-2.5 border border-slate-850 rounded-xl font-mono text-[9px] text-cyan-400 min-h-24 max-h-36 overflow-y-auto"
+          }
+        ]
+      }
+    ]
+  };
+};
+
 export default function App() {
   // 1. Emulator Global Hardware Configuration
   const [hwState, setHwState] = useState<EmulatorHardwareState>({
@@ -133,21 +373,33 @@ Render Engine: WebGL Goldfish Shader Block`
       addSystemLog(`APK_PARSER: Found ${fileNames.length} cataloged asset strings inside APK directory structures.`);
       setProgress(60);
 
-      // Submit metadata listing to Express proxy
-      const response = await fetch("/api/gemini/app-generator", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          apkName: file.name,
-          fileList: fileNames.slice(0, 50),
-          size: file.size
-        })
-      });
+      let generatedSchema: any = null;
+      try {
+        // Submit metadata listing to Express proxy
+        const response = await fetch("/api/gemini/app-generator", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            apkName: file.name,
+            fileList: fileNames.slice(0, 50),
+            size: file.size
+          })
+        });
 
-      if (!response.ok) throw new Error("Server synthesis rejected request structural configurations.");
+        if (response.ok) {
+          generatedSchema = await response.json();
+        } else {
+          addSystemLog(`SANDBOX_API_STATUS: Host server returned status code ${response.status}. Initiating on-device static stager.`);
+        }
+      } catch (apiErr: any) {
+        addSystemLog(`SANDBOX_API_NET: Fetch intercept. Initiating on-device static compilation.`);
+      }
+
+      if (!generatedSchema) {
+        generatedSchema = generateLocalAppSchema(file.name, fileNames);
+      }
       
       setProgress(85);
-      const generatedSchema = await response.json();
       
       // Stage app for User review installs popup
       setUnstagedAppSchema(generatedSchema);
