@@ -1,0 +1,6 @@
+{
+  "name": "Android Emulator",
+  "description": "An interactive, high-fidelity Android device emulator with APK installation support, featuring preinstalled core apps, a Play Store, and AI-powered app emulation for uploaded APK files.",
+  "requestFramePermissions": ["camera", "microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
